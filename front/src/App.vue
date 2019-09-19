@@ -1,36 +1,39 @@
-<template>
-  <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
+<template lang="pug">
+  v-app
+    v-navigation-drawer(v-model="gui.nav_drawer_visible" clipped app)
+      v-list-item
+        v-list-item-content
+          v-list-item-title
+            v-switch(v-model="gui.fullscreen_image" label="Fullscreen" primary)
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+    v-app-bar(app clipped-left)
+      v-app-bar-nav-icon(@click.stop="gui.nav_drawer_visible = !gui.nav_drawer_visible")
+      v-toolbar-title Object detection
+
+    v-content
+      v-container(fluid) 
+        v-layout(justify-space-around align-space-around)
+          v-flex(xs5 v-if="!gui.fullscreen_image")
+            v-img(src="/video_feed" aspect-ratio="1.7")
+          v-flex(:xs5="!gui.fullscreen_image" :xs10="gui.fullscreen_image") 
+            v-img(src="/inference_feed" aspect-ratio="1.7")
+    v-footer(app) 
+      span(class="px-3") &copy; Sébastien IOOSS {{ new Date().getFullYear() }}
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld,
+  name: "App",
+  data() {
+    return {
+      gui: {
+        nav_drawer_visible: false,
+        fullscreen_image: false
+      },
+    };
   },
-  data: () => ({
-    //
-  }),
+  mounted: function() {
+  }
 };
 </script>

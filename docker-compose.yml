@@ -1,0 +1,10 @@
+version: "2.3"
+services:
+  app:
+    image: netmist/object_detection:0.1
+    build: .
+    devices:
+      - /dev/video0
+    ports:
+      - 80:80
+    runtime: nvidia
